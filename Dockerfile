@@ -4,6 +4,8 @@ ARG ANSIBLE_VERSION="2.12.6"
 
 RUN apk --no-cache add \
         sudo \
+        python3 \
+        py3-pip \
         openssl \
         ca-certificates \
         sshpass \
@@ -19,10 +21,10 @@ RUN apk --no-cache add \
         openssl-dev \
         libressl-dev \
         build-base && \
-    pip install --upgrade pip wheel && \
-    pip install --upgrade cryptography cffi && \
-    pip install ansible-core==${ANSIBLE_VERSION} && \
-    pip install mitogen && \
+    pip3 install --upgrade pip wheel && \
+    pip3 install --upgrade cryptography cffi && \
+    pip3 install ansible-core==${ANSIBLE_VERSION} && \
+    pip3 install mitogen && \
     apk del build-dependencies && \
     rm -rf /var/cache/apk/* && \
     rm -rf /root/.cache/pip && \
@@ -34,7 +36,7 @@ RUN mkdir /ansible && \
 
 WORKDIR /ansible
 
-ADD requirements.yml /ansible/
+ADD requirements.yml /tmp/
 
 RUN ansible-galaxy collection install -r /tmp/requirements.yml && \
     rm -f /tmp/requirements.yml
