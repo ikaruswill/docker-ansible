@@ -1,4 +1,4 @@
-FROM python:3.10-alpine
+FROM alpine:3.16
 
 ARG ANSIBLE_VERSION "2.12.1"
 
