@@ -32,6 +32,10 @@ RUN apk --no-cache add \
 
 RUN mkdir /ansible && \
     mkdir -p /etc/ansible && \
+    SITE_PACKAGES_PATH=$(python3 -c 'import site; print(site.getsitepackages()[0])') && \
+    echo '[default]' >> /etc/ansible/ansible.cfg && \
+    echo 'strategy = mitogen_linear' >> /etc/ansible/ansible.cfg && \
+    echo "strategy_plugins = ${SITE_PACKAGES_PATH}/ansible_mitogen/plugins/strategy" >> /etc/ansible/ansible.cfg && \
     echo 'localhost' > /etc/ansible/hosts
 
 WORKDIR /ansible
