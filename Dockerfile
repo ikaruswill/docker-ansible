@@ -1,6 +1,6 @@
 FROM alpine:3.16
 
-ARG ANSIBLE_VERSION "2.12.1"
+ARG ANSIBLE_VERSION="2.12.6"
 
 RUN apk --no-cache add \
         sudo \
