@@ -31,12 +31,13 @@ RUN apk --no-cache add \
     rm -rf /root/.cargo
 
 RUN mkdir /ansible && \
-    mkdir -p /etc/ansible && \
+    ANSIBLE_CFG_PATH='/etc/ansible' && \
+    mkdir -p ${ANSIBLE_CFG_PATH} && \
     SITE_PACKAGES_PATH=$(python3 -c 'import site; print(site.getsitepackages()[0])') && \
-    echo '[default]' >> /etc/ansible/ansible.cfg && \
-    echo 'strategy = mitogen_linear' >> /etc/ansible/ansible.cfg && \
-    echo "strategy_plugins = ${SITE_PACKAGES_PATH}/ansible_mitogen/plugins/strategy" >> /etc/ansible/ansible.cfg && \
-    echo 'localhost' > /etc/ansible/hosts
+    echo '[defaults]' >> ${ANSIBLE_CFG_PATH}/ansible.cfg && \
+    echo 'strategy = mitogen_linear' >> ${ANSIBLE_CFG_PATH}/ansible.cfg && \
+    echo "strategy_plugins = ${SITE_PACKAGES_PATH}/ansible_mitogen/plugins/strategy" >> ${ANSIBLE_CFG_PATH}/ansible.cfg && \
+    echo 'localhost' > ${ANSIBLE_CFG_PATH}/hosts
 
 WORKDIR /ansible
 
