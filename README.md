@@ -1,2 +1,2 @@
 # docker-ansible
-Ansible docker image for CI/CD use
+Lightweight vanilla ansible on alpine with mitogen and ansible.posix collection for use in CI/CD pipelines.
